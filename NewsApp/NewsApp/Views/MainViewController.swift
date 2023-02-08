@@ -26,5 +26,9 @@ class MainViewController: UIViewController {
     @objc func onButtonTapped() {
         print("tap")
     }
+    
+    deinit {
+        print("deinit MainVC")
+    }
 }
 
