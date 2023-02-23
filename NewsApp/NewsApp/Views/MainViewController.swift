@@ -6,13 +6,38 @@
 //
 
 import UIKit
+import SwiftUI
+import SnapKit
 
 class MainViewController: UIViewController {
+    
+    @IBOutlet weak var loginbtn: UIButton!
+    
+    lazy var newsTableView: UITableView = {
+        let table = UITableView(frame: .zero)
+        table.backgroundColor = .gray
+        table.delegate = self
+        table.dataSource = self
+        return table
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        view.addSubview(newsTableView)
+        
+        updateViewConstraints()
+        
         convigurateNavBar()
+    }
+    
+    override func updateViewConstraints() {
+        newsTableView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalTo(loginbtn)
+        }
+        
+        super.updateViewConstraints()
     }
 
     private func convigurateNavBar() {
@@ -27,8 +52,23 @@ class MainViewController: UIViewController {
         print("tap")
     }
     
+    @IBSegueAction func showUserProfileSegue(_ coder: NSCoder) -> UIViewController? {
+        return UIHostingController(coder: coder, rootView: UserProfile())
+    }
+    
     deinit {
         print("deinit MainVC")
     }
 }
 
+extension MainViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(#function)
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print(#function)
+        return UITableViewCell()
+    }
+}
