@@ -9,6 +9,7 @@ import Foundation
 
 protocol MainViewViewModelProtocol {
     
+    
 }
 
 class MainViewViewModel: MainViewViewModelProtocol {
